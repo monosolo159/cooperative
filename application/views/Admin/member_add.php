@@ -35,6 +35,8 @@
           <li><a href="<?php echo site_url('admin/authorities'); ?>"><i class="glyphicon glyphicon-user"></i> เจ้าหน้าที่ </a></li>
           <li class="active"><a href="<?php echo site_url('admin/member'); ?>"><i class="glyphicon glyphicon-user"></i> สมาชิก </a></li>
           <li><a href="<?php echo site_url('admin/product'); ?>"><i class="glyphicon glyphicon-shopping-cart"></i> สินค้า </a></li>
+          <li><a href="<?php echo site_url('admin/share'); ?>"><i class="glyphicon glyphicon-stats"></i> หุ้น </a></li>
+          <li><a href="<?php echo site_url('admin/report'); ?>"><i class="glyphicon glyphicon-print"></i> รายงาน </a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right navbar-user">
             <li class="dropdown user-dropdown">
@@ -124,6 +126,11 @@
                     <div class="form-group">
                       <label for="password_member">รหัสผ่าน : <span style="color:red; font-size:20px;">*</span> </label>
                       <input type="password" class="form-control" name="password_member" id="password_member" data-error="กรุณาระบุรหัสผ่านให้ถูกต้อง" required>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                      <label for="password_member">จำนวนหุ้น : <span style="color:red; font-size:20px;">*</span> </label>
+                      <input type="number" class="form-control" name="member_share" id="member_share" data-error="กรุณาระบุจำนวนหุ้น" required>
                       <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">

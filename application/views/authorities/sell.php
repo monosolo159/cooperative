@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> รายงาน </title>
+  <title> ขายสินค้า </title>
 
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(''); ?>bootstrap/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(''); ?>font-awesome/css/font-awesome.min.css" />
@@ -23,20 +23,23 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="<?php echo site_url('admin'); ?>"> Administrator </a>
+        <a class="navbar-brand" href="<?php echo site_url('officer'); ?>"> Officer </a>
       </div>
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
-          <li><a href="<?php echo site_url('admin'); ?>"><i class="glyphicon glyphicon-user"></i> ผู้ดูแลระบบ </a></li>
-          <li><a href="<?php echo site_url('admin/authorities'); ?>"><i class="glyphicon glyphicon-user"></i> เจ้าหน้าที่ </a></li>
-          <li><a href="<?php echo site_url('admin/member'); ?>"><i class="glyphicon glyphicon-user"></i> สมาชิก </a></li>
-          <li><a href="<?php echo site_url('admin/product'); ?>"><i class="glyphicon glyphicon-shopping-cart"></i> สินค้า </a></li>
-          <li><a href="<?php echo site_url('admin/share'); ?>"><i class="glyphicon glyphicon-stats"></i> หุ้น </a></li>
-          <li class="active"><a href="<?php echo site_url('admin/report'); ?>"><i class="glyphicon glyphicon-print"></i> รายงาน </a></li>
+          <li><a href="<?php echo site_url('officer'); ?>"><i class="glyphicon glyphicon-shopping-cart"></i> สินค้า </a></li>
+          <li><a href="<?php echo site_url('officer/order'); ?>"><i class="glyphicon glyphicon-list-alt"></i> รายการสั่งซื้อสินค้า </a></li>
+          <li class="active"><a href="<?php echo site_url('officer/sell'); ?>"><i class="glyphicon glyphicon-bitcoin"></i> ขายสินค้า </a></li>
+          <!-- <li><a href="<?php echo site_url('officer/share'); ?>"><i class="glyphicon glyphicon-piggy-bank"></i> ปันผล </a></li> -->
+          <li><a href="<?php echo site_url('officer/share'); ?>"><i class="glyphicon glyphicon-stats"></i> หุ้น </a></li>
+
+          <li><a href="<?php echo site_url('officer/member'); ?>"><i class="glyphicon glyphicon-user"></i> สมาชิก </a></li>
+          <li><a href="<?php echo site_url('officer/activity'); ?>"><i class="glyphicon glyphicon-picture"></i> ภาพกิจกรรม </a></li>
+          <li><a href="<?php echo site_url('officer/report'); ?>"><i class="glyphicon glyphicon-print"></i> รายงาน </a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right navbar-user">
             <li class="dropdown user-dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $this->session->userdata['admin_name']." ".$this->session->userdata['admin_surname'] ?><b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $this->session->userdata['authorities_name']." ".$this->session->userdata['authorities_surname'] ?> <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li>
                   <a href="<?php echo site_url('login/logout'); ?>" onclick="return confirm('ออกจากระบบ ?');">
@@ -55,64 +58,67 @@
           <div class="col-lg-12">
             <div class="panel panel-primary">
               <div class="panel-heading">
-                <h3 class="panel-title"><i class="glyphicon glyphicon-print"></i> รายงาน </h3>
+                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> สินค้า </h3>
               </div>
               <div class="panel-body">
                 <div class="col-xs-6 col-md-6">
-                  <a href="<?php echo site_url('admin/member_add') ?>">
-                    <input type="button" class="btn btn-info" name="btn_Add" value="เพิ่มสมาชิก">
-                  </a>
+                  <!-- <a href="<?php echo site_url('officer/product_add') ?>">
+                    <input type="button" class="btn btn-info" name="btn_Add" value="เพิ่มสินค้า">
+                  </a> -->
                 </div>
                 <div class="col-xs-2 col-md-2"></div>
                 <div class="col-xs-4 col-md-4">
-                  <form id="contact_form" action="<?php echo site_url('admin/member') ?>" method="post">
+                  <form id="contact_form" action="<?php echo site_url('officer') ?>" method="post">
                     <div class="input-group">
-                      <input type="text" class="form-control" name="member_search" placeholder="ป้อนชื่อสมาชิก">
+                      <input type="text" class="form-control" name="product_search" placeholder="ป้อนชื่อสินค้า">
                       <span class="input-group-btn">
                         <button class="btn btn-success" type="submit"> <i class="glyphicon glyphicon-search"></i> ค้นหา </button>
                       </span>
                     </div>
                   </form>
                 </div>
-                <?php echo md5('dd01'); ?>
+
                 <div class="col-xs-12 col-md-12" style="margin-top:20px;">
                   <table class="table table-bordered">
                     <thead>
                       <tr>
                         <th style="text-align:center;">#</th>
                         <th style="text-align:center;"> รูปภาพ </th>
-                        <th style="text-align:center;"> ชื่อ - นามสกุล </th>
-                        <th style="text-align:center;"> อีเมล </th>
-                        <th style="text-align:center;"> เบอร์โทร </th>
+                        <th style="text-align:center;"> ชื่อสินค้า </th>
+                        <th style="text-align:center;"> ราคา</th>
+                        <th style="text-align:center;"> จำนวนคงเหลือ</th>
                         <th style="text-align:center;"> จัดการข้อมูล </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php $i = 1; ?>
-                      <?php if( !empty($member) ) {
-                        foreach ($member as $member) { ?>
+                      <?php
+                        $i = 1;
+                        $total = 0;
+                        $total_price = 0;
+                        if( !empty($product) ) {
+                        foreach ($product as $product) { ?>
 
                         <tr>
                           <th scope="row" style="text-align:center; vertical-align:middle;"> <?php echo $i; ?> </th>
                           <td style="width:100px;">
-                            <img src="<?php echo base_url('image/member/'); ?>/<?php echo $member->member_image ?>" width="100px">
+                            <img src="<?php echo base_url('image/product/'); ?>/<?php echo $product->product_image; ?>" width="100px">
                           </td>
-                          <td style="text-align:center; vertical-align:middle;"> <?php echo $member->member_name ?> <?php echo $member->member_surname ?> </td>
-                          <td style="text-align:center; vertical-align:middle;"> <?php echo $member->member_email ?> </td>
-                          <td style="text-align:center; vertical-align:middle;"> <?php echo $member->member_tel ?> </td>
+                          <td style="text-align:center; vertical-align:middle;"> <?php echo $product->product_name; ?></td>
+                          <td style="text-align:center; vertical-align:middle;"> <?php echo $product->product_price; ?> </td>
+                          <td style="text-align:center; vertical-align:middle; width:150px;"> จำนวน </td>
                           <td style="width:130px; vertical-align:middle;">
-                            <a href="<?php echo site_url('admin/member_edit'); ?>/<?php echo $member->member_id ?>">
-                              <input type="button" class="btn btn-warning" name="btn_edit" value="แก้ไข">
-                            </a>
-                            <a href="<?php echo site_url('admin/member_delete'); ?>/<?php echo $member->member_id ?>" onclick="return confirm('ยืนยันการลบข้อมูลสมาชิกท่านนี้ ?');">
-                              <input type="button" class="btn btn-danger" name="btn_delete" value="ลบ">
+                            <a href="<?php echo site_url('officer/product_sell'); ?>/<?php echo $product->product_id; ?>">
+                              <input type="button" class="btn btn-success" name="btn_edit" value="ขาย">
                             </a>
                           </td>
                         </tr>
 
-                      <?php $i++; ?>
-                    <?php }
-                  }?>
+                      <?php
+                        
+                        }
+                      }?>
+
+
 
                     </tbody>
                   </table>

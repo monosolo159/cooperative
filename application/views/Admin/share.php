@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> สมาชิก </title>
+  <title> หุ้น </title>
 
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(''); ?>bootstrap/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(''); ?>font-awesome/css/font-awesome.min.css" />
@@ -75,16 +75,16 @@
                     <?php echo form_close(); ?>
                     <div class="form-group">
                       <label for="surname_member">จำนวนหุ้นในระบบ : </label>
-                      <input type="text" class="form-control"  data-error="จำนวนหุ้นในระบบ" required disabled>
+                      <input type="text" class="form-control"  data-error="จำนวนหุ้นในระบบ" value="<?php echo $setting_web[0]['member_share_all'] ?>" required disabled>
                       <div class="help-block with-errors"></div>
                     </div>
 
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label for="tel_member">จำนวนเงินปันผลจากกำไร : </label>
                       <input type="text" class="form-control" data-error="กรุณาระบุเบอร์โทรให้ถูกต้อง" required disabled>
                       <div class="help-block with-errors"></div>
-                    </div>
+                    </div> -->
 
 
                   </div>

@@ -50,10 +50,48 @@ class Officer extends CI_Controller {
 		$this->load->view('authorities/index', $data);
 	}
 
-	public function share()
-	{
+
+	public function sell(){
+		$where = 'product_name';
+		$search = '';
+		if(isset($_POST['product_search'])){
+			$search = $_POST['product_search'];
+		}
+
+		$table = 'product';
+
+		$config = array();
+    $config["base_url"] = base_url('officer/sell');
+    $config["total_rows"] = $this->Main_model->record_count($table, $search, $where);
+    $config["per_page"] = 10;
+		$config["uri_segment"] = 3;
+		$limit = $config['per_page'];
+
+		$config['full_tag_open'] = "<ul class='pagination'>";
+		$config['full_tag_close'] ="</ul>";
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
+		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
+		$config['next_tag_open'] = "<li>";
+		$config['next_tagl_close'] = "</li>";
+		$config['prev_tag_open'] = "<li>";
+		$config['prev_tagl_close'] = "</li>";
+		$config['first_tag_open'] = "<li>";
+		$config['first_tagl_close'] = "</li>";
+		$config['last_tag_open'] = "<li>";
+		$config['last_tagl_close'] = "</li>";
+
+    $this->pagination->initialize($config);
+		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+		$data["product"] = $this->Main_model->fetch_data($limit, $page, $table, $search, $where);
+		$data["links"] = $this->pagination->create_links();
+
+		$this->load->view('authorities/sell', $data);
 
 	}
+
 
 	public function order()
 	{
@@ -324,6 +362,8 @@ class Officer extends CI_Controller {
 					'member_address' => $_POST['address_member'],
 					'member_idcard' => $_POST['idcard_member'],
 					'member_email' => $_POST['email_member'],
+					'member_share' => $_POST['member_share'],
+
 					'member_user' => $_POST['user_member']
 				);
 			}else {
@@ -337,6 +377,8 @@ class Officer extends CI_Controller {
 					'member_idcard' => $_POST['idcard_member'],
 					'member_email' => $_POST['email_member'],
 					'member_user' => $_POST['user_member'],
+					'member_share' => $_POST['member_share'],
+
 					'member_password' => md5($_POST['password_member'])
 				);
 			}
@@ -360,6 +402,8 @@ class Officer extends CI_Controller {
 					'member_address' => $_POST['address_member'],
 					'member_idcard' => $_POST['idcard_member'],
 					'member_email' => $_POST['email_member'],
+					'member_share' => $_POST['member_share'],
+
 					'member_user' => $_POST['user_member'],
 					'member_image' => $file_member
 				);
@@ -374,6 +418,8 @@ class Officer extends CI_Controller {
 					'member_idcard' => $_POST['idcard_member'],
 					'member_email' => $_POST['email_member'],
 					'member_user' => $_POST['user_member'],
+					'member_share' => $_POST['member_share'],
+
 					'member_password' => md5($_POST['password_member']),
 					'member_image' => $file_member
 				);
@@ -383,6 +429,31 @@ class Officer extends CI_Controller {
 			echo "<script> alert('แก้ไขข้อมูลผู้ดูแลระบบเรียบร้อยแล้วค่ะ');
 			window.location.href='member'; </script>";
 		}
+	}
+
+	public function share()
+	{
+		$data['setting_web'] = $this
+		->db
+		// ->get('setting_web')->result_array();
+
+		->select('setting_web_id,setting_web_per_share,(SELECT SUM(member_share)  FROM member) AS member_share_all')
+		// ->select('*,(select count(book_page_id) from book_page where book.book_id = book_page.book_id) as book_all_page,(select count(book_read_id) from book_read where book_read.book_id = book.book_id) as book_all_read,(select sum(book_like_score) from book_like where book_like.book_id = book.book_id)/(select count(book_like_id) from book_like where book_like.book_id = book.book_id) as book_score')
+		// ->order_by('antiques_date','desc')
+		// ->join('antiques_store','antiques_store.antiques_store_id = antiques.antiques_store_id','left')
+		// ->join('staff','staff.staff_id = antiques.staff_id','left')
+		->get('setting_web')
+		->result_array();
+
+
+		$this->load->view('authorities/share', $data);
+	}
+
+	public function share_update(){
+		$input = $this->input->post();
+		$this->db->where('setting_web_id',$input['setting_web_id'])->update('setting_web',$input);
+		echo "<script> alert('บันทึกข้อมูลเรียบร้อยแล้วค่ะ');
+		window.location.href='share'; </script>";
 	}
 
 	public function product_delete()

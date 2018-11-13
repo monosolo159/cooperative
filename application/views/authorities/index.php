@@ -29,9 +29,13 @@
         <ul class="nav navbar-nav side-nav">
           <li class="active"><a href="<?php echo site_url('officer'); ?>"><i class="glyphicon glyphicon-shopping-cart"></i> สินค้า </a></li>
           <li><a href="<?php echo site_url('officer/order'); ?>"><i class="glyphicon glyphicon-list-alt"></i> รายการสั่งซื้อสินค้า </a></li>
-          <li><a href="<?php echo site_url('officer/share'); ?>"><i class="glyphicon glyphicon-piggy-bank"></i> ปันผล </a></li>
+          <!-- <li><a href="<?php echo site_url('officer/sell'); ?>"><i class="glyphicon glyphicon-bitcoin"></i> ขายสินค้า </a></li> -->
+          <!-- <li><a href="<?php echo site_url('officer/share'); ?>"><i class="glyphicon glyphicon-piggy-bank"></i> ปันผล </a></li> -->
+          <li><a href="<?php echo site_url('officer/share'); ?>"><i class="glyphicon glyphicon-stats"></i> หุ้น </a></li>
+
           <li><a href="<?php echo site_url('officer/member'); ?>"><i class="glyphicon glyphicon-user"></i> สมาชิก </a></li>
           <li><a href="<?php echo site_url('officer/activity'); ?>"><i class="glyphicon glyphicon-picture"></i> ภาพกิจกรรม </a></li>
+          <li><a href="<?php echo site_url('officer/report'); ?>"><i class="glyphicon glyphicon-print"></i> รายงาน </a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right navbar-user">
             <li class="dropdown user-dropdown">
@@ -84,6 +88,7 @@
                         <th style="text-align:center;"> ราคา</th>
                         <th style="text-align:center;"> ยอดขาย (จำนวน)</th>
                         <th style="text-align:center;"> ยอดเงิน (บาท)</th>
+                        <th style="text-align:center;"> ขายสินค้า </th>
                         <th style="text-align:center;"> จัดการข้อมูล </th>
                       </tr>
                     </thead>
@@ -104,6 +109,11 @@
                           <td style="text-align:center; vertical-align:middle;"> <?php echo $product->product_price; ?> </td>
                           <td style="text-align:center; vertical-align:middle; width:150px;"> <?php echo $product->product_sale; ?> </td>
                           <td style="text-align:center; vertical-align:middle; width:150px;"> <?php echo (int)$product->product_price * (int)$product->product_sale; ?> </td>
+                          <td style="width:130px; vertical-align:middle;">
+                            <a href="<?php echo site_url('officer/product_sell'); ?>/<?php echo $product->product_id; ?>">
+                              <input type="button" class="btn btn-success" name="btn_edit" value="ขาย">
+                            </a>
+                          </td>
                           <td style="width:130px; vertical-align:middle;">
                             <a href="<?php echo site_url('officer/product_edit'); ?>/<?php echo $product->product_id; ?>">
                               <input type="button" class="btn btn-warning" name="btn_edit" value="แก้ไข">

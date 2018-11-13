@@ -33,9 +33,12 @@
         <ul class="nav navbar-nav side-nav">
           <li><a href="<?php echo site_url('officer'); ?>"><i class="glyphicon glyphicon-shopping-cart"></i> สินค้า </a></li>
           <li><a href="<?php echo site_url('officer/order'); ?>"><i class="glyphicon glyphicon-list-alt"></i> รายการสั่งซื้อสินค้า </a></li>
-          <li><a href="<?php echo site_url('officer/share'); ?>"><i class="glyphicon glyphicon-piggy-bank"></i> ปันผล </a></li>
+          <!-- <li><a href="<?php echo site_url('officer/sell'); ?>"><i class="glyphicon glyphicon-bitcoin"></i> ขายสินค้า </a></li> -->
+          <!-- <li><a href="<?php echo site_url('officer/share'); ?>"><i class="glyphicon glyphicon-piggy-bank"></i> ปันผล </a></li> -->
+          <li><a href="<?php echo site_url('officer/share'); ?>"><i class="glyphicon glyphicon-stats"></i> หุ้น </a></li>
           <li class="active"><a href="<?php echo site_url('officer/member'); ?>"><i class="glyphicon glyphicon-user"></i> สมาชิก </a></li>
           <li><a href="<?php echo site_url('officer/activity'); ?>"><i class="glyphicon glyphicon-picture"></i> ภาพกิจกรรม </a></li>
+          <li><a href="<?php echo site_url('officer/report'); ?>"><i class="glyphicon glyphicon-print"></i> รายงาน </a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right navbar-user">
           <li class="dropdown user-dropdown">
@@ -126,6 +129,11 @@
                     <label for="password_member">รหัสผ่าน : <span style="color:red; font-size:20px;"> &nbsp;</span> </label>
                     <input type="password" class="form-control" name="password_member" id="password_member">
                     <input type="hidden" class="form-control" name="id_member" id="id_member" value="<?php echo $member[0]['member_id'] ?>">
+                  </div>
+                  <div class="form-group">
+                    <label for="password_member">จำนวนหุ้น : <span style="color:red; font-size:20px;">*</span> </label>
+                    <input type="number" class="form-control" name="member_share" id="member_share" value="<?php echo $member[0]['member_share'] ?>" data-error="กรุณาระบุจำนวนหุ้น" required>
+                    <div class="help-block with-errors"></div>
                   </div>
                   <div class="form-group">
                     <label for="file_member">อัปโหลดรูปภาพ : <span style="color:red; font-size:20px;"> &nbsp;</span> </label>
