@@ -76,22 +76,43 @@
 
             <!-- Right -->
             <div class="col-sm-2 col-md-2">
-              <div class="panel panel-primary" style="border-radius:0px;">
-                <div class="panel-heading" style="text-align:center; border-radius:0px; font-size:16px;"> เข้าสู่ระบบ </div>
-                <div class="panel-body">
-                  <form action="<?php echo site_url('login')?>" method="post">
-                    <div class="form-group">
-                      <label for="username"><span class="glyphicon glyphicon-user"> </span> ชื่อผู้ใช้งาน :</label>
-                      <input type="text" class="form-control" name="username" id="username" required>
-                    </div>
-                    <div class="form-group">
-                      <label for="password"><span class="glyphicon glyphicon-lock"> </span> รหัสผ่าน :</label>
-                      <input type="password" class="form-control" name="password" id="password" required>
-                    </div>
-                    <button type="submit" class="btn btn-success"> เข้าสู่ระบบ </button>
-                  </form>
+              <?php if (empty($this->session->userdata['member_id'])): ?>
+                <div class="panel panel-primary" style="border-radius:0px;">
+                  <div class="panel-heading" style="text-align:center; border-radius:0px; font-size:16px;"> เข้าสู่ระบบ </div>
+                  <div class="panel-body">
+                    <form action="<?php echo site_url('login')?>" method="post">
+                      <div class="form-group">
+                        <label for="username"><span class="glyphicon glyphicon-user"> </span> ชื่อผู้ใช้งาน :</label>
+                        <input type="text" class="form-control" name="username" id="username" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="password"><span class="glyphicon glyphicon-lock"> </span> รหัสผ่าน :</label>
+                        <input type="password" class="form-control" name="password" id="password" required>
+                      </div>
+                      <button type="submit" class="btn btn-success"> เข้าสู่ระบบ </button>
+                    </form>
+                  </div>
                 </div>
-              </div>
+              <?php else: ?>
+                <div class="panel panel-primary" style="border-radius:0px;">
+                  <div class="panel-heading" style="text-align:center; border-radius:0px; font-size:16px;"> ข้อมูลสมาชิก </div>
+                  <div class="panel-body">
+                    <div class="form-group">
+                      <img src="<?php echo base_url('image/member/'.$this->session->userdata['member_image']) ?>" alt="" width="100%">
+                    </div>
+                      <div class="form-group">
+                        <label for="username"><span class="glyphicon glyphicon-user"> </span> <?php echo $this->session->userdata['member_name'].' '.$this->session->userdata['member_surname'] ?></label>
+                      </div>
+                      <div class="form-group">
+                        <a href="<?php echo site_url('member_share') ?>" class="btn btn-info" style="width:100%">ยอดปันผล</a>
+                        <a href="<?php echo site_url('member_history_buy') ?>" class="btn btn-info" style="width:100%">ประวัติการซื่อสินค้า</a>
+                        <a href="<?php echo site_url('login/logout') ?>" class="btn btn-danger" style="width:100%">ออกจากระบบ</a>
+                      </div>
+
+
+                  </div>
+                </div>
+              <?php endif; ?>
             </div>
           </div>
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2018 at 01:02 AM
+-- Generation Time: Nov 14, 2018 at 08:19 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -181,14 +181,14 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`product_id`, `product_name`, `product_price`, `product_balance`, `product_order`, `product_sale`, `product_image`) VALUES
-(2, 'มาม่าโจ๊กคัพรสไก่', '15', '100', '0', '0', 'product2018pm15180624.jpg'),
+(2, 'มาม่าโจ๊กคัพรสไก่', '15', '100', '0', '10', 'product2018pm15180624.jpg'),
 (3, 'เลย์เน็ต', '20', '100', '0', '0', 'product2018pm15180725.jpg'),
-(5, 'TORO', '20', '100', '0', '0', 'product2018pm15182318.jpg'),
+(5, 'TORO', '20', '100', '0', '7', 'product2018pm15182318.jpg'),
 (6, 'เลย์รสมันฝรั่ง', '5', '100', '0', '0', 'product2018pm15204813.jpg'),
 (7, 'ปลาสวรรค์รสบาร์บี้คิว', '20', '100', '0', '0', 'product2018pm15204840.jpg'),
 (8, 'ปาปรีก้า', '5', '100', '0', '0', 'product2018pm15204909.jpg'),
-(9, 'ขาไก่อาโกริ', '5', '100', '0', '0', 'product2018pm15204937.jpg'),
-(10, 'FFGG', '30', '100', '0', '0', 'product2018pm30162756.png');
+(9, 'ขาไก่อาโกริ', '5', '100', '0', '7', 'product2018pm15204937.jpg'),
+(10, 'FFGG', '30', '100', '0', '3', 'product2018pm30162756.png');
 
 -- --------------------------------------------------------
 
@@ -211,9 +211,11 @@ CREATE TABLE `product_sell` (
 --
 
 INSERT INTO `product_sell` (`product_sell_id`, `product_id`, `member_id`, `authorities_id`, `product_qty`, `product_sell_price`, `product_sell_date`) VALUES
-(1, 1, 2, 5, 10, '50.00', '2018-01-07 00:00:00'),
-(2, 1, 2, 5, 15, '50.00', '2018-02-07 00:00:00'),
-(3, 4, 2, 5, 5, '13.00', '2018-08-14 00:00:00');
+(4, 2, 4, 5, 10, '15.00', '2018-11-14 10:34:03'),
+(5, 5, 4, 5, 3, '20.00', '2018-11-14 10:34:10'),
+(6, 9, 4, 5, 7, '5.00', '2018-11-14 10:34:17'),
+(7, 5, 2, 5, 4, '20.00', '2018-11-14 10:34:26'),
+(8, 10, 2, 5, 3, '30.00', '2018-11-14 10:34:33');
 
 -- --------------------------------------------------------
 
@@ -231,7 +233,7 @@ CREATE TABLE `setting_web` (
 --
 
 INSERT INTO `setting_web` (`setting_web_id`, `setting_web_per_share`) VALUES
-(1, '0.05');
+(1, '0.03');
 
 --
 -- Indexes for dumped tables
@@ -323,7 +325,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `product_sell`
 --
 ALTER TABLE `product_sell`
-  MODIFY `product_sell_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `product_sell_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `setting_web`
 --

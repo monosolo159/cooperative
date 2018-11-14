@@ -86,7 +86,22 @@ class Main extends CI_Controller {
 		$this->load->view('Main/register');
 	}
 
+	public function member(){
+		$this->load->view('Main/member');
+	}
 
+	public function member_share(){
+		$data['member'] = $this->db->where('member_id',$this->session->userdata['member_id'])->get('member')->result_array();
+		$data['member_share'] = $this->db->where('member_id',$this->session->userdata['member_id'])->get('member')->result_array();
+		$this->load->view('Main/member_share',$data);
+	}
+
+
+	public function member_history_buy(){
+		$data['product_history'] = $this->db->where('member_id',$this->session->userdata['member_id'])->join('product', 'product.product_id = product_sell.product_id')->get('product_sell')->result_array();
+		$this->load->view('Main/member_history_buy',$data);
+
+	}
 
 
 

@@ -29,9 +29,10 @@
         <ul class="nav navbar-nav side-nav">
           <li><a href="<?php echo site_url('Manager'); ?>"><i class="glyphicon glyphicon-shopping-cart"></i> สินค้า </a></li>
           <li><a href="<?php echo site_url('Manager/order'); ?>"><i class="glyphicon glyphicon-list-alt"></i> รายการสั่งซื้อสินค้า </a></li>
-          <li><a href="<?php echo site_url('Manager/share'); ?>"><i class="glyphicon glyphicon-piggy-bank"></i> ปันผล </a></li>
+          <li><a href="<?php echo site_url('Manager/share'); ?>"><i class="glyphicon glyphicon-stats"></i> หุ้น </a></li>
           <li class="active"><a href="<?php echo site_url('Manager/member'); ?>"><i class="glyphicon glyphicon-user"></i> สมาชิก </a></li>
           <li><a href="<?php echo site_url('Manager/activity'); ?>"><i class="glyphicon glyphicon-picture"></i> ภาพกิจกรรม </a></li>
+          <li><a href="<?php echo site_url('Manager/report'); ?>"><i class="glyphicon glyphicon-print"></i> รายงาน </a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right navbar-user">
           <li class="dropdown user-dropdown">
@@ -89,6 +90,7 @@
                         <th style="text-align:center;"> จัดการข้อมูล </th>
                       </tr>
                     </thead>
+                    <?php $setting_web = $this->db->get('setting_web')->result_array(); ?>
                     <tbody>
                       <?php $i = 1;
                       if( !empty($member) ) {
@@ -103,8 +105,27 @@
                           <td style="text-align:center; vertical-align:middle;"> <?php echo $member->member_email; ?> </td>
                           <td style="text-align:center; vertical-align:middle;"> <?php echo $member->member_tel; ?> </td>
                           <td style="text-align:center; vertical-align:middle;"> <?php echo $member->member_share; ?> </td>
-                          <td style="text-align:center; vertical-align:middle;">  </td>
-                          <td style="text-align:center; vertical-align:middle;">  </td>
+                          <?php $sum_sell_member = $this->db->select('member_id,member_share,(SELECT SUM(product_qty*product_sell_price) FROM product_sell WHERE product_sell.member_id = member.member_id) AS member_share_all')->where('member_id',$member->member_id)->get('member')->result_array(); ?>
+
+                          <td style="text-align:center; vertical-align:middle;">
+                            <?php
+                              foreach ($sum_sell_member as $key => $value) {
+                                if($sum_sell_member[$key]['member_id']==$member->member_id){
+                                  echo ($value['member_share_all']);
+                                }
+                              }
+                             ?>
+                           </td>
+                          <td style="text-align:center; vertical-align:middle;">
+                            
+                            <?php
+                              foreach ($sum_sell_member as $key => $value) {
+                                if($sum_sell_member[$key]['member_id']==$member->member_id){
+                                  echo ($setting_web[0]['setting_web_per_share']*$value['member_share']*$value['member_share_all']);
+                                }
+                              }
+                             ?>
+                          </td>
                           <td style="width:130px; vertical-align:middle;">
                             <a href="<?php echo site_url('Manager/member_edit'); ?>/<?php echo $member->member_id; ?>">
                               <input type="button" class="btn btn-warning" name="btn_edit" value="แก้ไข">

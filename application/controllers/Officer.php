@@ -50,6 +50,29 @@ class Officer extends CI_Controller {
 		$this->load->view('authorities/index', $data);
 	}
 
+	public function report()
+	{
+
+		$data["month_01"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=01) AS member_sell_all')->where('MONTH(product_sell_date)',01)->get('product_sell')->result_array();
+		$data["month_02"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=02) AS member_sell_all')->where('MONTH(product_sell_date)',02)->get('product_sell')->result_array();
+		$data["month_03"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=03) AS member_sell_all')->where('MONTH(product_sell_date)',03)->get('product_sell')->result_array();
+		$data["month_04"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=04) AS member_sell_all')->where('MONTH(product_sell_date)',04)->get('product_sell')->result_array();
+		$data["month_05"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=05) AS member_sell_all')->where('MONTH(product_sell_date)',05)->get('product_sell')->result_array();
+		$data["month_06"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=06) AS member_sell_all')->where('MONTH(product_sell_date)',06)->get('product_sell')->result_array();
+		$data["month_07"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=07) AS member_sell_all')->where('MONTH(product_sell_date)',07)->get('product_sell')->result_array();
+		$data["month_08"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=08) AS member_sell_all')->where('MONTH(product_sell_date)',08)->get('product_sell')->result_array();
+		$data["month_09"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=09) AS member_sell_all')->where('MONTH(product_sell_date)',09)->get('product_sell')->result_array();
+		$data["month_10"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=10) AS member_sell_all')->where('MONTH(product_sell_date)',10)->get('product_sell')->result_array();
+		$data["month_11"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=11) AS member_sell_all')->where('MONTH(product_sell_date)',11)->get('product_sell')->result_array();
+		$data["month_12"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=12) AS member_sell_all')->where('MONTH(product_sell_date)',12)->get('product_sell')->result_array();
+
+		$data["product"] = $this->db
+		->select('product_id,product_name,product_sale')
+		->get('product')
+		->result_array();
+
+		$this->load->view('authorities/report', $data);
+	}
 
 	public function sell(){
 		$where = 'product_name';

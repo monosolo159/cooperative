@@ -13,6 +13,8 @@ $route['news'] = 'Main/news';
 $route['activity'] = 'Main/activity';
 $route['history'] = 'Main/history';
 $route['product'] = 'Main/product';
+$route['member_share'] = 'Main/member_share';
+$route['member_history_buy'] = 'Main/member_history_buy';
 
 
 

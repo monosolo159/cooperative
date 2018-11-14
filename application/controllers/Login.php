@@ -67,12 +67,14 @@ class Login extends CI_Controller {
 							'member_id' => $login_member[0]['member_id'],
 							'member_name' => $login_member[0]['member_name'],
 							'member_surname' => $login_member[0]['member_surname'],
+							'member_image' => $login_member[0]['member_image'],
+
 							'status' => 'member',
 							'isLoggedIn'=>true
 							)
 						);
 						echo "<script> alert('ยินดีต้อนรับสมาชิกที่เข้าสู่ระบบค่ะ');
-						window.location.href='member'; </script>";
+						window.location.href='index'; </script>";
 					}else {
 						echo "<script> alert('ชื่อผู้ใช้งาน หรือ รหัสผ่าน ไม่ถูกต้อง กรุณาลองใหม่อีกครั้งค่ะ !!');
 						window.location.href='index'; </script>";

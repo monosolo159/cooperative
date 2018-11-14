@@ -180,7 +180,30 @@ class Admin extends CI_Controller {
 		$data["month_11"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=11) AS member_sell_all')->where('MONTH(product_sell_date)',11)->get('product_sell')->result_array();
 		$data["month_12"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=12) AS member_sell_all')->where('MONTH(product_sell_date)',12)->get('product_sell')->result_array();
 
-		$this->load->view('Admin/report', $data);
+		$data["product"] = $this->db
+		->select('product_id,product_name,product_sale')
+		->get('product')
+		->result_array();
+
+		$this->load->view('manager/report', $data);
+	}
+
+	public function share()
+	{
+		$data['setting_web'] = $this
+		->db
+		// ->get('setting_web')->result_array();
+
+		->select('setting_web_id,setting_web_per_share,(SELECT SUM(member_share)  FROM member) AS member_share_all')
+		// ->select('*,(select count(book_page_id) from book_page where book.book_id = book_page.book_id) as book_all_page,(select count(book_read_id) from book_read where book_read.book_id = book.book_id) as book_all_read,(select sum(book_like_score) from book_like where book_like.book_id = book.book_id)/(select count(book_like_id) from book_like where book_like.book_id = book.book_id) as book_score')
+		// ->order_by('antiques_date','desc')
+		// ->join('antiques_store','antiques_store.antiques_store_id = antiques.antiques_store_id','left')
+		// ->join('staff','staff.staff_id = antiques.staff_id','left')
+		->get('setting_web')
+		->result_array();
+
+
+		$this->load->view('manager/share', $data);
 	}
 
 	public function product()

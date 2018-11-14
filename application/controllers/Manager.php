@@ -50,9 +50,53 @@ class Manager extends CI_Controller {
 		$this->load->view('Manager/index', $data);
 	}
 
-	public function share()
+	public function share_update(){
+		$input = $this->input->post();
+		$this->db->where('setting_web_id',$input['setting_web_id'])->update('setting_web',$input);
+		echo "<script> alert('บันทึกข้อมูลเรียบร้อยแล้วค่ะ');
+		window.location.href='share'; </script>";
+	}
+
+	public function report()
 	{
 
+		$data["month_01"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=01) AS member_sell_all')->where('MONTH(product_sell_date)',01)->get('product_sell')->result_array();
+		$data["month_02"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=02) AS member_sell_all')->where('MONTH(product_sell_date)',02)->get('product_sell')->result_array();
+		$data["month_03"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=03) AS member_sell_all')->where('MONTH(product_sell_date)',03)->get('product_sell')->result_array();
+		$data["month_04"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=04) AS member_sell_all')->where('MONTH(product_sell_date)',04)->get('product_sell')->result_array();
+		$data["month_05"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=05) AS member_sell_all')->where('MONTH(product_sell_date)',05)->get('product_sell')->result_array();
+		$data["month_06"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=06) AS member_sell_all')->where('MONTH(product_sell_date)',06)->get('product_sell')->result_array();
+		$data["month_07"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=07) AS member_sell_all')->where('MONTH(product_sell_date)',07)->get('product_sell')->result_array();
+		$data["month_08"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=08) AS member_sell_all')->where('MONTH(product_sell_date)',08)->get('product_sell')->result_array();
+		$data["month_09"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=09) AS member_sell_all')->where('MONTH(product_sell_date)',09)->get('product_sell')->result_array();
+		$data["month_10"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=10) AS member_sell_all')->where('MONTH(product_sell_date)',10)->get('product_sell')->result_array();
+		$data["month_11"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=11) AS member_sell_all')->where('MONTH(product_sell_date)',11)->get('product_sell')->result_array();
+		$data["month_12"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=12) AS member_sell_all')->where('MONTH(product_sell_date)',12)->get('product_sell')->result_array();
+
+		$data["product"] = $this->db
+		->select('product_id,product_name,product_sale')
+		->get('product')
+		->result_array();
+
+		$this->load->view('manager/report', $data);
+	}
+
+	public function share()
+	{
+		$data['setting_web'] = $this
+		->db
+		// ->get('setting_web')->result_array();
+
+		->select('setting_web_id,setting_web_per_share,(SELECT SUM(member_share)  FROM member) AS member_share_all')
+		// ->select('*,(select count(book_page_id) from book_page where book.book_id = book_page.book_id) as book_all_page,(select count(book_read_id) from book_read where book_read.book_id = book.book_id) as book_all_read,(select sum(book_like_score) from book_like where book_like.book_id = book.book_id)/(select count(book_like_id) from book_like where book_like.book_id = book.book_id) as book_score')
+		// ->order_by('antiques_date','desc')
+		// ->join('antiques_store','antiques_store.antiques_store_id = antiques.antiques_store_id','left')
+		// ->join('staff','staff.staff_id = antiques.staff_id','left')
+		->get('setting_web')
+		->result_array();
+
+
+		$this->load->view('manager/share', $data);
 	}
 
 	public function order()
@@ -129,6 +173,7 @@ class Manager extends CI_Controller {
 
     $this->pagination->initialize($config);
 		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
 
 		$data["member"] = $this->Main_model->fetch_data($limit, $page, $table, $search, $where);
 		$data["links"] = $this->pagination->create_links();
