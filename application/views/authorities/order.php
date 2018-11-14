@@ -28,7 +28,7 @@
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
           <li><a href="<?php echo site_url('officer'); ?>"><i class="glyphicon glyphicon-shopping-cart"></i> สินค้า </a></li>
-          <li class="active"><a href="<?php echo site_url('officer/order'); ?>"><i class="glyphicon glyphicon-list-alt"></i> รายการสั่งซื้อสินค้า </a></li>
+          <!-- <li class="active"><a href="<?php echo site_url('officer/order'); ?>"><i class="glyphicon glyphicon-list-alt"></i> รายการสั่งซื้อสินค้า </a></li> -->
           <!-- <li><a href="<?php echo site_url('officer/sell'); ?>"><i class="glyphicon glyphicon-bitcoin"></i> ขายสินค้า </a></li> -->
           <!-- <li><a href="<?php echo site_url('officer/share'); ?>"><i class="glyphicon glyphicon-piggy-bank"></i> ปันผล </a></li>
         <li><a href="<?php echo site_url('officer/share'); ?>"><i class="glyphicon glyphicon-stats"></i> หุ้น </a></li>-->
@@ -98,7 +98,7 @@
                             <img src="<?php echo base_url('image/product/'); ?>/<?php echo $product->product_image ?>" width="100px">
                           </td>
                           <td style="text-align:center; vertical-align:middle;"> <?php echo $product->product_name ?></td>
-                          <td style="text-align:center; vertical-align:middle;"> <?php echo $product->product_balance ?> </td>
+                          <td style="text-align:center; vertical-align:middle;"> <?php echo $product->product_balance-$product->product_sale ?> </td>
                           <td style="text-align:center; vertical-align:middle;"> <?php echo $product->product_order ?> </td>
                           <td style="width:220px; vertical-align:middle; text-align:center;">
                             <a href="<?php echo site_url('officer/product_order'); ?>/<?php echo $product->product_id ?>">

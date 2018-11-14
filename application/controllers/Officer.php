@@ -92,6 +92,33 @@ class Officer extends CI_Controller {
 
 	}
 
+	public function product_sell(){
+		$id = $this->uri->segment(3);
+
+
+		$data["product"] = $this->db->where('product_id',$id)->get('product')->result_array();
+		$this->load->view('authorities/product_sell', $data);
+	}
+
+	public function product_sell_add(){
+		$input = $this->input->post();
+
+		if($this->db->where('member_id',$input['member_id'])->get('member')->result_array()){
+			$input['product_sell_date'] = date("Y-m-d H:i:s");
+			$this->db->insert('product_sell', $input);
+
+			$productselect = $this->db->where('product_id',$input['product_id'])->get('product')->result_array();
+			$product['product_sale'] = $productselect[0]['product_sale'] + $input['product_qty'];
+			$this->db->where('product_id',$input['product_id'])->update('product', $product);
+
+			echo "<script> alert('เพิ่มภาพกิจกรรมเรียบร้อยแล้วค่ะ');
+			window.location.href='index'; </script>";
+		}else{
+			echo "<script> alert('ไม่สามารถบันทึกข้อมูลได้เนื่องจากไม่พบรหัสสมาชิกค่ะ');
+			window.location.href='product_sell/".$input['product_id']."'; </script>";
+		}
+	}
+
 
 	public function order()
 	{

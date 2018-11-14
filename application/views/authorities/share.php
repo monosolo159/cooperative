@@ -27,8 +27,8 @@
       </div>
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
-          <li class="active"><a href="<?php echo site_url('officer'); ?>"><i class="glyphicon glyphicon-shopping-cart"></i> สินค้า </a></li>
-          <li><a href="<?php echo site_url('officer/order'); ?>"><i class="glyphicon glyphicon-list-alt"></i> รายการสั่งซื้อสินค้า </a></li>
+          <li><a href="<?php echo site_url('officer'); ?>"><i class="glyphicon glyphicon-shopping-cart"></i> สินค้า </a></li>
+          <!-- <li><a href="<?php echo site_url('officer/order'); ?>"><i class="glyphicon glyphicon-list-alt"></i> รายการสั่งซื้อสินค้า </a></li> -->
           <!-- <li><a href="<?php echo site_url('officer/sell'); ?>"><i class="glyphicon glyphicon-bitcoin"></i> ขายสินค้า </a></li> -->
           <!-- <li><a href="<?php echo site_url('officer/share'); ?>"><i class="glyphicon glyphicon-piggy-bank"></i> ปันผล </a></li> -->
           <li class="active"><a href="<?php echo site_url('officer/share'); ?>"><i class="glyphicon glyphicon-stats"></i> หุ้น </a></li>
@@ -71,12 +71,12 @@
                   <div class="col-xs-6 col-md-6">
                     <?php echo form_open('officer/share_update'); ?>
                     <div class="form-group">
-                      <label for="name_member">การปันผล : <span style="color:red; font-size:20px;">*</span> </label>
-                      <input type="text" class="form-control" name="setting_web_per_share" data-error="ร้อยละปันผล" required value="<?php echo $setting_web[0]['setting_web_per_share'] ?>">
+                      <label for="name_member">การปันผล : </label>
+                      <input type="text" class="form-control" name="setting_web_per_share" data-error="ร้อยละปันผล" required value="<?php echo $setting_web[0]['setting_web_per_share'] ?>" disabled>
                       <div class="help-block with-errors"></div>
                     </div>
                     <input type="hidden" name="setting_web_id" value="<?php echo $setting_web[0]['setting_web_id'] ?>">
-                    <button type="submit" class="btn btn-success"> บันทึก </button>
+                    <!-- <button type="submit" class="btn btn-success"> บันทึก </button> -->
                     <?php echo form_close(); ?>
                     <div class="form-group">
                       <label for="surname_member">จำนวนหุ้นในระบบ : </label>

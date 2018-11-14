@@ -28,7 +28,7 @@
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
           <li><a href="<?php echo site_url('officer'); ?>"><i class="glyphicon glyphicon-shopping-cart"></i> สินค้า </a></li>
-          <li><a href="<?php echo site_url('officer/order'); ?>"><i class="glyphicon glyphicon-list-alt"></i> รายการสั่งซื้อสินค้า </a></li>
+          <!-- <li><a href="<?php echo site_url('officer/order'); ?>"><i class="glyphicon glyphicon-list-alt"></i> รายการสั่งซื้อสินค้า </a></li> -->
           <!-- <li><a href="<?php echo site_url('officer/sell'); ?>"><i class="glyphicon glyphicon-bitcoin"></i> ขายสินค้า </a></li> -->
           <li><a href="<?php echo site_url('officer/share'); ?>"><i class="glyphicon glyphicon-stats"></i> หุ้น </a></li>
           <!-- <li><a href="<?php echo site_url('officer/share'); ?>"><i class="glyphicon glyphicon-piggy-bank"></i> ปันผล </a></li> -->
@@ -86,9 +86,13 @@
                         <th style="text-align:center;"> ชื่อ - นามสกุล </th>
                         <th style="text-align:center;"> อีเมล </th>
                         <th style="text-align:center;"> เบอร์โทร </th>
+                        <th style="text-align:center;"> หุ้น </th>
+                        <th style="text-align:center;"> ยอดปันผล </th>
                         <th style="text-align:center;"> จัดการข้อมูล </th>
                       </tr>
                     </thead>
+                    <?php $setting_web = $this->db->get('setting_web')->result_array(); ?>
+
                     <tbody>
                       <?php $i = 1;
                       if( !empty($member) ) {
@@ -102,6 +106,18 @@
                           <td style="text-align:center; vertical-align:middle;"> <?php echo $member->member_name; ?> <?php echo $member->member_surname; ?> </td>
                           <td style="text-align:center; vertical-align:middle;"> <?php echo $member->member_email; ?> </td>
                           <td style="text-align:center; vertical-align:middle;"> <?php echo $member->member_tel; ?> </td>
+                          <td style="text-align:center; vertical-align:middle;"> <?php echo $member->member_share; ?> </td>
+                          <?php $sum_sell_member = $this->db->select('member_id,member_share,(SELECT SUM(product_qty*product_sell_price) FROM product_sell WHERE product_sell.member_id = member.member_id) AS member_share_all')->where('member_id',$member->member_id)->get('member')->result_array(); ?>
+                          <td style="text-align:center; vertical-align:middle;">
+
+                            <?php
+                              foreach ($sum_sell_member as $key => $value) {
+                                if($sum_sell_member[$key]['member_id']==$member->member_id){
+                                  echo ($setting_web[0]['setting_web_per_share']*$value['member_share']*$value['member_share_all']);
+                                }
+                              }
+                             ?>
+                          </td>
                           <td style="width:130px; vertical-align:middle;">
                             <a href="<?php echo site_url('officer/member_edit'); ?>/<?php echo $member->member_id; ?>">
                               <input type="button" class="btn btn-warning" name="btn_edit" value="แก้ไข">

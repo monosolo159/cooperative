@@ -164,42 +164,21 @@ class Admin extends CI_Controller {
 
 	public function report()
 	{
-		$where = 'member_name';
-		$search = '';
-		if(isset($_POST['member_search'])){
-			$search = $_POST['member_search'];
-		}
 
-		$table = 'member';
 
-		$config = array();
-    $config["base_url"] = base_url('admin/report');
-    $config["total_rows"] = $this->Main_model->record_count($table, $search, $where);
-    $config["per_page"] = 10;
-		$config["uri_segment"] = 3;
-		$limit = $config['per_page'];
 
-		$config['full_tag_open'] = "<ul class='pagination'>";
-		$config['full_tag_close'] ="</ul>";
-		$config['num_tag_open'] = '<li>';
-		$config['num_tag_close'] = '</li>';
-		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
-		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
-		$config['next_tag_open'] = "<li>";
-		$config['next_tagl_close'] = "</li>";
-		$config['prev_tag_open'] = "<li>";
-		$config['prev_tagl_close'] = "</li>";
-		$config['first_tag_open'] = "<li>";
-		$config['first_tagl_close'] = "</li>";
-		$config['last_tag_open'] = "<li>";
-		$config['last_tagl_close'] = "</li>";
-
-    $this->pagination->initialize($config);
-		// $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-
-		$data["member"] = $this->Main_model->fetch_data($limit, $page, $table, $search, $where);
-		$data["links"] = $this->pagination->create_links();
+		$data["month_01"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=01) AS member_sell_all')->where('MONTH(product_sell_date)',01)->get('product_sell')->result_array();
+		$data["month_02"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=02) AS member_sell_all')->where('MONTH(product_sell_date)',02)->get('product_sell')->result_array();
+		$data["month_03"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=03) AS member_sell_all')->where('MONTH(product_sell_date)',03)->get('product_sell')->result_array();
+		$data["month_04"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=04) AS member_sell_all')->where('MONTH(product_sell_date)',04)->get('product_sell')->result_array();
+		$data["month_05"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=05) AS member_sell_all')->where('MONTH(product_sell_date)',05)->get('product_sell')->result_array();
+		$data["month_06"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=06) AS member_sell_all')->where('MONTH(product_sell_date)',06)->get('product_sell')->result_array();
+		$data["month_07"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=07) AS member_sell_all')->where('MONTH(product_sell_date)',07)->get('product_sell')->result_array();
+		$data["month_08"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=08) AS member_sell_all')->where('MONTH(product_sell_date)',08)->get('product_sell')->result_array();
+		$data["month_09"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=09) AS member_sell_all')->where('MONTH(product_sell_date)',09)->get('product_sell')->result_array();
+		$data["month_10"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=10) AS member_sell_all')->where('MONTH(product_sell_date)',10)->get('product_sell')->result_array();
+		$data["month_11"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=11) AS member_sell_all')->where('MONTH(product_sell_date)',11)->get('product_sell')->result_array();
+		$data["month_12"] = $this->db->select('(SELECT SUM(product_qty)*product_sell_price  FROM product_sell where MONTH(product_sell_date)=12) AS member_sell_all')->where('MONTH(product_sell_date)',12)->get('product_sell')->result_array();
 
 		$this->load->view('Admin/report', $data);
 	}

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2018 at 03:31 PM
+-- Generation Time: Nov 14, 2018 at 01:02 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -157,8 +157,8 @@ CREATE TABLE `member` (
 --
 
 INSERT INTO `member` (`member_id`, `member_name`, `member_surname`, `member_idcard`, `member_birthday`, `member_tel`, `member_email`, `member_gender`, `member_address`, `member_image`, `member_user`, `member_password`, `member_share`) VALUES
-(2, '123233', '123', '1231232313123', '2018-02-09', '1231231231', 'member@hotmail.com', 'ผู้ชาย', '1000131', 'member2018am15110154.jpg', '123', '202cb962ac59075b964b07152d234b70', '0'),
-(4, 'GH', 'GH', '1111111111111', '2018-10-24', '0800000000', 'xxx@xxx.xxx', 'ผู้ชาย', 'xxxxx', 'member2018pm30135620.jpg', 'dd02', '435e4db214f1c0d31f98e156802108f5', '0');
+(2, '123233', '123', '1231232313123', '2018-02-09', '1231231231', 'member@hotmail.com', 'ผู้ชาย', '1000131', 'member2018am15110154.jpg', '123', '202cb962ac59075b964b07152d234b70', '3'),
+(4, 'GH', 'GH', '1111111111111', '2018-10-24', '0800000000', 'xxx@xxx.xxx', 'ผู้ชาย', 'xxxxx', 'member2018pm30135620.jpg', 'dd02', '435e4db214f1c0d31f98e156802108f5', '7');
 
 -- --------------------------------------------------------
 
@@ -181,28 +181,39 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`product_id`, `product_name`, `product_price`, `product_balance`, `product_order`, `product_sale`, `product_image`) VALUES
-(2, 'มาม่าโจ๊กคัพรสไก่', '15', '100', '50', '1000', 'product2018pm15180624.jpg'),
-(3, 'เลย์เน็ต', '20', '150', '0', '500', 'product2018pm15180725.jpg'),
-(5, 'TORO', '20', '100', '0', '499', 'product2018pm15182318.jpg'),
+(2, 'มาม่าโจ๊กคัพรสไก่', '15', '100', '0', '0', 'product2018pm15180624.jpg'),
+(3, 'เลย์เน็ต', '20', '100', '0', '0', 'product2018pm15180725.jpg'),
+(5, 'TORO', '20', '100', '0', '0', 'product2018pm15182318.jpg'),
 (6, 'เลย์รสมันฝรั่ง', '5', '100', '0', '0', 'product2018pm15204813.jpg'),
 (7, 'ปลาสวรรค์รสบาร์บี้คิว', '20', '100', '0', '0', 'product2018pm15204840.jpg'),
 (8, 'ปาปรีก้า', '5', '100', '0', '0', 'product2018pm15204909.jpg'),
 (9, 'ขาไก่อาโกริ', '5', '100', '0', '0', 'product2018pm15204937.jpg'),
-(10, 'FFGG', '30', '111', '0', '0', 'product2018pm30162756.png');
+(10, 'FFGG', '30', '100', '0', '0', 'product2018pm30162756.png');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_stock`
+-- Table structure for table `product_sell`
 --
 
-CREATE TABLE `product_stock` (
-  `product_stock_id` int(11) NOT NULL,
+CREATE TABLE `product_sell` (
+  `product_sell_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `product_balance` int(11) NOT NULL DEFAULT '0',
-  `product_date` datetime NOT NULL,
-  `manager_id` int(11) NOT NULL
+  `member_id` int(11) NOT NULL,
+  `authorities_id` int(11) NOT NULL,
+  `product_qty` int(11) NOT NULL,
+  `product_sell_price` decimal(11,2) NOT NULL,
+  `product_sell_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `product_sell`
+--
+
+INSERT INTO `product_sell` (`product_sell_id`, `product_id`, `member_id`, `authorities_id`, `product_qty`, `product_sell_price`, `product_sell_date`) VALUES
+(1, 1, 2, 5, 10, '50.00', '2018-01-07 00:00:00'),
+(2, 1, 2, 5, 15, '50.00', '2018-02-07 00:00:00'),
+(3, 4, 2, 5, 5, '13.00', '2018-08-14 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -220,7 +231,7 @@ CREATE TABLE `setting_web` (
 --
 
 INSERT INTO `setting_web` (`setting_web_id`, `setting_web_per_share`) VALUES
-(1, '0.50');
+(1, '0.05');
 
 --
 -- Indexes for dumped tables
@@ -263,10 +274,10 @@ ALTER TABLE `product`
   ADD PRIMARY KEY (`product_id`);
 
 --
--- Indexes for table `product_stock`
+-- Indexes for table `product_sell`
 --
-ALTER TABLE `product_stock`
-  ADD PRIMARY KEY (`product_stock_id`);
+ALTER TABLE `product_sell`
+  ADD PRIMARY KEY (`product_sell_id`);
 
 --
 -- Indexes for table `setting_web`
@@ -309,10 +320,10 @@ ALTER TABLE `member`
 ALTER TABLE `product`
   MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
--- AUTO_INCREMENT for table `product_stock`
+-- AUTO_INCREMENT for table `product_sell`
 --
-ALTER TABLE `product_stock`
-  MODIFY `product_stock_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `product_sell`
+  MODIFY `product_sell_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `setting_web`
 --
