@@ -101,7 +101,8 @@
                       <img src="<?php echo base_url('image/member/'.$this->session->userdata['member_image']) ?>" alt="" width="100%">
                     </div>
                       <div class="form-group">
-                        <label for="username"><span class="glyphicon glyphicon-user"> </span> <?php echo $this->session->userdata['member_name'].' '.$this->session->userdata['member_surname'] ?></label>
+                        <label for="username"><span class="glyphicon glyphicon-user"> ชื่อ-สกุล </span> <br><p style="text-indent: 2.5em;"><?php echo $this->session->userdata['member_name'].' '.$this->session->userdata['member_surname'] ?></p></label><br>
+                        <label for="username"><span class="glyphicon glyphicon-credit-card"> รหัสสมาชิก </span> <br> <p style="text-indent: 2.5em;"><?php echo $this->session->userdata['member_id'] ?></p></label>
                       </div>
                       <div class="form-group">
                         <a href="<?php echo site_url('member_share') ?>" class="btn btn-info" style="width:100%">ยอดปันผล</a>
